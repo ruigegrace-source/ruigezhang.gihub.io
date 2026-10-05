@@ -1,0 +1,2110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Meta tags for character encoding and mobile viewport responsiveness -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio | Business Analytics & Global Supply Chain Student</title>
+
+  <!-- Google Fonts: Inter for clean, modern readability -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome Icons for UI elements and social icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* 
+      ==========================================================================
+      1. CSS VARIABLES (DESIGN TOKENS)
+      These variables allow you to easily change colors, fonts, and spacing 
+      across the entire site from one central place.
+      ==========================================================================
+    */
+    :root {
+      --primary-dark: #0F172A;   /* Deep Slate Navy for headers and hero */
+      --primary-blue: #1E3A8A;   /* Classic Navy Blue for main accents */
+      --accent-teal: #0D9488;    /* Modern Teal for secondary highlights */
+      --accent-cyan: #0284C7;    /* Bright Blue for hover states and links */
+      
+      --bg-main: #F8FAFC;        /* Off-white background for crisp contrast */
+      --bg-card: #FFFFFF;        /* Pure white for cards and content containers */
+      --bg-alt: #F1F5F9;         /* Soft slate tint for alternating sections */
+
+      --text-main: #1E293B;      /* Dark charcoal for high contrast body text */
+      --text-muted: #64748B;     /* Muted gray for secondary descriptions */
+      --text-light: #94A3B8;     /* Light gray for borders and subtle details */
+      
+      --border-color: #E2E8F0;   /* Light gray border for clean divider lines */
+      --radius-sm: 8px;          /* Small border radius for buttons/tags */
+      --radius-md: 12px;         /* Medium border radius for cards */
+      --radius-lg: 20px;         /* Large border radius for modals/containers */
+      
+      --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.05);
+      --shadow-md: 0 4px 16px rgba(15, 23, 42, 0.08);
+      --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.12);
+
+      --transition-fast: 0.2s ease;
+      --transition-normal: 0.3s ease;
+    }
+
+    /* 
+      ==========================================================================
+      2. BASE & RESET STYLES
+      Resetting margins and establishing layout defaults.
+      ==========================================================================
+    */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth; /* Enables smooth scrolling when clicking nav links */
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: var(--accent-cyan);
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+
+    a:hover {
+      color: var(--primary-blue);
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Standard Layout Container */
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* Standard Section Wrapper */
+    .section {
+      padding: 5rem 0;
+    }
+
+    .section-alt {
+      background-color: var(--bg-alt);
+    }
+
+    /* Section Headers */
+    .section-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-subtitle {
+      color: var(--accent-teal);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 1.5px;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .section-title {
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      letter-spacing: -0.5px;
+    }
+
+    .section-description {
+      max-width: 650px;
+      margin: 0.75rem auto 0;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    /* Reusable Button Components */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.75rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border-radius: var(--radius-sm);
+      transition: all var(--transition-normal);
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-blue);
+      color: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(30, 58, 138, 0.25);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      color: #FFFFFF;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.3);
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      border-color: var(--primary-blue);
+      color: var(--primary-blue);
+    }
+
+    .btn-outline:hover {
+      background-color: var(--primary-blue);
+      color: #FFFFFF;
+      transform: translateY(-2px);
+    }
+
+    .btn-sm {
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+    }
+
+    /* 
+      ==========================================================================
+      3. STICKY NAVIGATION BAR
+      ==========================================================================
+    */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px); /* Frosted glass effect */
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+      z-index: 1000;
+      transition: all var(--transition-normal);
+    }
+
+    .navbar .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 75px;
+    }
+
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo span {
+      color: var(--accent-teal);
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-main);
+      font-weight: 500;
+      font-size: 0.95rem;
+      position: relative;
+      padding: 0.25rem 0;
+    }
+
+    /* Underline hover effect for menu links */
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background-color: var(--accent-teal);
+      transition: width var(--transition-fast);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    /* Mobile Menu Toggle Button */
+    .mobile-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--primary-dark);
+      cursor: pointer;
+    }
+
+    /* Mobile Drawer Menu */
+    .mobile-drawer {
+      position: fixed;
+      top: 75px;
+      left: 0;
+      width: 100%;
+      background-color: var(--bg-card);
+      border-bottom: 1px solid var(--border-color);
+      padding: 1.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      transform: translateY(-150%);
+      transition: transform var(--transition-normal);
+      z-index: 999;
+      box-shadow: var(--shadow-md);
+    }
+
+    .mobile-drawer.active {
+      transform: translateY(0);
+    }
+
+    .mobile-drawer a {
+      color: var(--text-main);
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    /* 
+      ==========================================================================
+      4. HERO SECTION
+      ==========================================================================
+    */
+    .hero {
+      padding-top: 9rem;
+      padding-bottom: 6rem;
+      background: linear-gradient(135deg, rgba(248,250,252,1) 0%, rgba(241,245,249,1) 100%);
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background-color: rgba(13, 148, 136, 0.1);
+      color: var(--accent-teal);
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+      border: 1px solid rgba(13, 148, 136, 0.2);
+    }
+
+    .hero-title {
+      font-size: 3rem;
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--primary-dark);
+      margin-bottom: 1.25rem;
+      letter-spacing: -1px;
+    }
+
+    .hero-title span {
+      color: var(--primary-blue);
+      background: linear-gradient(120deg, var(--primary-blue), var(--accent-teal));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-description {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      max-width: 580px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-socials {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .hero-socials span {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .social-link {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-main);
+      font-size: 1.1rem;
+      transition: all var(--transition-fast);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .social-link:hover {
+      background-color: var(--primary-blue);
+      color: #FFFFFF;
+      border-color: var(--primary-blue);
+      transform: translateY(-3px);
+    }
+
+    /* Headshot / Profile Avatar Container */
+    .hero-avatar-wrapper {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .avatar-card {
+      position: relative;
+      width: 100%;
+      max-width: 360px;
+      aspect-ratio: 1 / 1;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      border: 4px solid #FFFFFF;
+      background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      text-align: center;
+      padding: 2rem;
+      background: linear-gradient(135deg, rgba(30, 58, 138, 0.95), rgba(13, 148, 136, 0.85));
+    }
+
+    .avatar-icon {
+      font-size: 5rem;
+      margin-bottom: 1rem;
+      opacity: 0.9;
+    }
+
+    .avatar-badge-floating {
+      position: absolute;
+      bottom: -15px;
+      right: 10px;
+      background: #FFFFFF;
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      border: 1px solid var(--border-color);
+    }
+
+    .avatar-badge-floating i {
+      color: var(--accent-teal);
+      font-size: 1.25rem;
+    }
+
+    .avatar-badge-floating div {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .avatar-badge-floating strong {
+      font-size: 0.85rem;
+      color: var(--primary-dark);
+    }
+
+    .avatar-badge-floating span {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* 
+      ==========================================================================
+      5. ABOUT ME SECTION
+      ==========================================================================
+    */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3.5rem;
+      align-items: start;
+    }
+
+    .about-bio {
+      background-color: var(--bg-card);
+      padding: 2.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-color);
+    }
+
+    .about-bio h3 {
+      font-size: 1.5rem;
+      color: var(--primary-dark);
+      margin-bottom: 1.25rem;
+      font-weight: 700;
+    }
+
+    .about-bio p {
+      margin-bottom: 1.25rem;
+      color: var(--text-main);
+      font-size: 1.025rem;
+      line-height: 1.7;
+    }
+
+    .university-card {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      background-color: var(--bg-alt);
+      padding: 1.25rem;
+      border-radius: var(--radius-sm);
+      margin-top: 1.5rem;
+      border-left: 4px solid var(--primary-blue);
+    }
+
+    .university-icon {
+      font-size: 2rem;
+      color: var(--primary-blue);
+    }
+
+    .university-text strong {
+      display: block;
+      color: var(--primary-dark);
+      font-size: 0.95rem;
+    }
+
+    .university-text span {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .focus-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .focus-card {
+      background-color: var(--bg-card);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-color);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+      display: flex;
+      gap: 1.25rem;
+    }
+
+    .focus-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(13, 148, 136, 0.4);
+    }
+
+    .focus-icon-wrapper {
+      width: 50px;
+      height: 50px;
+      border-radius: var(--radius-sm);
+      background-color: rgba(30, 58, 138, 0.08);
+      color: var(--primary-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      flex-shrink: 0;
+    }
+
+    .focus-content h4 {
+      font-size: 1.1rem;
+      color: var(--primary-dark);
+      margin-bottom: 0.4rem;
+    }
+
+    .focus-content p {
+      font-size: 0.925rem;
+      color: var(--text-muted);
+    }
+
+    /* 
+      ==========================================================================
+      6. ACADEMIC PROJECTS SECTION
+      ==========================================================================
+    */
+    .project-filters {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 0.5rem 1.25rem;
+      border-radius: 50px;
+      border: 1px solid var(--border-color);
+      background-color: var(--bg-card);
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background-color: var(--primary-blue);
+      color: #FFFFFF;
+      border-color: var(--primary-blue);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 2rem;
+    }
+
+    .project-card {
+      background-color: var(--bg-card);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition-normal);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .project-header {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary-blue));
+      color: #FFFFFF;
+      padding: 1.75rem 1.5rem;
+      position: relative;
+    }
+
+    .project-category {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent-teal);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .project-header h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .project-body {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    /* Problem -> Tool -> Insight Structured Layout */
+    .pti-block {
+      margin-bottom: 1rem;
+    }
+
+    .pti-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--primary-blue);
+      margin-bottom: 0.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .pti-text {
+      font-size: 0.925rem;
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
+    .tags-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: auto;
+      padding-top: 1rem;
+    }
+
+    .tag {
+      background-color: var(--bg-alt);
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+    }
+
+    .tag-ai {
+      background-color: rgba(13, 148, 136, 0.1);
+      color: var(--accent-teal);
+      border-color: rgba(13, 148, 136, 0.2);
+    }
+
+    .project-footer {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--border-color);
+      background-color: rgba(248, 250, 252, 0.5);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .project-footer-btn {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary-blue);
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0;
+    }
+
+    .project-footer-btn:hover {
+      color: var(--accent-teal);
+    }
+
+    /* Coursework Tags Area */
+    .coursework-box {
+      margin-top: 4rem;
+      background-color: var(--bg-card);
+      padding: 2rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .coursework-box h4 {
+      font-size: 1.1rem;
+      color: var(--primary-dark);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .coursework-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .course-tag {
+      background-color: var(--bg-alt);
+      color: var(--text-main);
+      padding: 0.4rem 0.85rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 500;
+      border: 1px solid var(--border-color);
+    }
+
+    /* Interactive Project Modal Popup */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition-normal);
+      padding: 1.5rem;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-container {
+      background-color: var(--bg-card);
+      width: 100%;
+      max-width: 700px;
+      max-height: 85vh;
+      overflow-y: auto;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      padding: 2rem;
+      position: relative;
+      transform: translateY(20px);
+      transition: transform var(--transition-normal);
+    }
+
+    .modal-overlay.active .modal-container {
+      transform: translateY(0);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      background: var(--bg-alt);
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      color: var(--text-main);
+      transition: background-color var(--transition-fast);
+    }
+
+    .modal-close:hover {
+      background-color: #E2E8F0;
+    }
+
+    .modal-title {
+      font-size: 1.5rem;
+      color: var(--primary-dark);
+      margin-bottom: 0.5rem;
+      padding-right: 2rem;
+    }
+
+    .modal-category {
+      font-size: 0.85rem;
+      color: var(--accent-teal);
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+
+    .modal-body {
+      color: var(--text-main);
+      font-size: 0.975rem;
+      line-height: 1.6;
+    }
+
+    .modal-section-title {
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-top: 1.25rem;
+      margin-bottom: 0.4rem;
+    }
+
+    /* 
+      ==========================================================================
+      7. SKILLS & AI COMPETENCIES SECTION
+      ==========================================================================
+    */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .skill-category-card {
+      background-color: var(--bg-card);
+      padding: 2rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--bg-alt);
+    }
+
+    .category-header i {
+      font-size: 1.35rem;
+      color: var(--accent-teal);
+    }
+
+    .category-header h3 {
+      font-size: 1.15rem;
+      color: var(--primary-dark);
+    }
+
+    .skill-item {
+      margin-bottom: 1.25rem;
+    }
+
+    .skill-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .skill-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.4rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .skill-name {
+      color: var(--text-main);
+    }
+
+    .skill-level {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    .skill-bar {
+      height: 8px;
+      background-color: var(--bg-alt);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .skill-progress {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary-blue), var(--accent-teal));
+      border-radius: 4px;
+      transition: width 1s ease-in-out;
+    }
+
+    /* AI Highlight Banner Component */
+    .ai-banner {
+      margin-top: 3.5rem;
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary-blue));
+      color: #FFFFFF;
+      padding: 2.5rem;
+      border-radius: var(--radius-md);
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 1.5rem;
+      align-items: center;
+      box-shadow: var(--shadow-md);
+    }
+
+    .ai-icon-large {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: var(--accent-teal);
+    }
+
+    .ai-banner-content h4 {
+      font-size: 1.35rem;
+      margin-bottom: 0.5rem;
+      color: #FFFFFF;
+    }
+
+    .ai-banner-content p {
+      color: #CBD5E1;
+      font-size: 0.975rem;
+      margin-bottom: 1rem;
+    }
+
+    .ai-pill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .ai-pill {
+      background: rgba(255, 255, 255, 0.15);
+      color: #FFFFFF;
+      padding: 0.3rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      backdrop-filter: blur(4px);
+    }
+
+    /* 
+      ==========================================================================
+      8. CAREER GOALS & VISION SECTION
+      ==========================================================================
+    */
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 3px;
+      background-color: var(--border-color);
+      transform: translateX(-50%);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 3rem;
+      width: 50%;
+      padding-right: 2.5rem;
+    }
+
+    .timeline-item:nth-child(even) {
+      margin-left: 50%;
+      padding-right: 0;
+      padding-left: 2.5rem;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      top: 0;
+      right: -10px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: var(--accent-teal);
+      border: 4px solid var(--bg-main);
+      box-shadow: var(--shadow-sm);
+      z-index: 1;
+    }
+
+    .timeline-item:nth-child(even) .timeline-dot {
+      right: auto;
+      left: -10px;
+    }
+
+    .timeline-card {
+      background-color: var(--bg-card);
+      padding: 1.75rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .timeline-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--accent-teal);
+      margin-bottom: 0.4rem;
+    }
+
+    .timeline-card h3 {
+      font-size: 1.15rem;
+      color: var(--primary-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-card p {
+      font-size: 0.925rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* 
+      ==========================================================================
+      9. CONTACT SECTION
+      ==========================================================================
+    */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 3.5rem;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .contact-method-card {
+      background-color: var(--bg-card);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .contact-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: var(--radius-sm);
+      background-color: rgba(30, 58, 138, 0.08);
+      color: var(--primary-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    .contact-details h4 {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.2rem;
+    }
+
+    .contact-details p,
+    .contact-details a {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--primary-dark);
+    }
+
+    .copy-btn {
+      margin-left: auto;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 1rem;
+      padding: 0.5rem;
+      border-radius: 4px;
+      transition: color var(--transition-fast);
+    }
+
+    .copy-btn:hover {
+      color: var(--primary-blue);
+    }
+
+    /* Contact Form Styling */
+    .contact-form {
+      background-color: var(--bg-card);
+      padding: 2.5rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--primary-dark);
+      margin-bottom: 0.4rem;
+    }
+
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: var(--text-main);
+      background-color: var(--bg-main);
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--accent-teal);
+      box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+      background-color: #FFFFFF;
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 130px;
+    }
+
+    /* 
+      ==========================================================================
+      10. FOOTER & MEDIA QUERIES (RESPONSIVENESS)
+      ==========================================================================
+    */
+    .footer {
+      background-color: var(--primary-dark);
+      color: #FFFFFF;
+      padding: 3rem 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .footer-text {
+      color: #94A3B8;
+      font-size: 0.9rem;
+    }
+
+    /* Notification Banner for copy action */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: var(--primary-dark);
+      color: #FFFFFF;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-lg);
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all var(--transition-normal);
+      z-index: 3000;
+      border-left: 4px solid var(--accent-teal);
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* RESPONSIVE DESIGN BREAKPOINTS */
+    @media (max-width: 992px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero-description {
+        margin: 0 auto 2rem;
+      }
+
+      .hero-actions {
+        justify-content: center;
+      }
+
+      .hero-socials {
+        justify-content: center;
+      }
+
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .ai-banner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .ai-icon-large {
+        margin: 0 auto;
+      }
+
+      .ai-pill-tags {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none; /* Hide main links on mobile, use drawer */
+      }
+
+      .mobile-toggle {
+        display: block;
+      }
+
+      .hero-title {
+        font-size: 2.25rem;
+      }
+
+      .section-title {
+        font-size: 1.85rem;
+      }
+
+      .timeline::before {
+        left: 20px;
+      }
+
+      .timeline-item,
+      .timeline-item:nth-child(even) {
+        width: 100%;
+        padding-left: 3rem;
+        padding-right: 0;
+        margin-left: 0;
+      }
+
+      .timeline-dot,
+      .timeline-item:nth-child(even) .timeline-dot {
+        left: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 
+    ==========================================================================
+    HEADER & NAVIGATION BAR
+    Sticky header providing constant access to site sections.
+    ==========================================================================
+  -->
+  <header class="navbar">
+    <div class="container">
+      <a href="#" class="logo">
+        <i class="fa-solid me-2 fa-chart-line"></i> RZ<span>.Analytics</span>
+      </a>
+      
+      <!-- Desktop Navigation Menu -->
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Academic Projects</a></li>
+          <li><a href="#skills">Skills & AI</a></li>
+          <li><a href="#goals">Career Goals</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Hamburger toggle button for small screens -->
+      <button class="mobile-toggle" id="mobileMenuBtn" aria-label="Toggle Navigation Menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Slide-Down Drawer Menu -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <a href="#about" class="mobile-link">About</a>
+    <a href="#projects" class="mobile-link">Academic Projects</a>
+    <a href="#skills" class="mobile-link">Skills & AI</a>
+    <a href="#goals" class="mobile-link">Career Goals</a>
+    <a href="#contact" class="mobile-link">Contact</a>
+  </div>
+
+  <main>
+    <!-- 
+      ==========================================================================
+      HERO SECTION
+      Initial impact area highlighting identity, degree, and quick links.
+      ==========================================================================
+    -->
+    <section class="hero" id="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <i class="fa-solid fa-graduation-cap"></i> University of New Haven Class of '28
+          </div>
+          <h1 class="hero-title">
+            Business Analytics & <span>Global Supply Chain</span> Student
+          </h1>
+          <p class="hero-description">
+            Combining quantitative analysis, predictive modeling, and AI tools to optimize logistics workflows and build resilient global trade networks.
+          </p>
+          
+          <div class="hero-actions">
+            <a href="#projects" class="btn btn-primary">
+              View Projects <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            <a href="#contact" class="btn btn-outline">
+              Contact Me
+            </a>
+          </div>
+
+          <div class="hero-socials">
+            <span>Connect:</span>
+            <a href="https://linkedin.com" target="_blank" class="social-link" title="LinkedIn Profile"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://github.com" target="_blank" class="social-link" title="GitHub Profile"><i class="fa-brands fa-github"></i></a>
+            <a href="mailto:rzhan6@unh.newhaven.edu" class="social-link" title="Send Email"><i class="fa-regular fa-envelope"></i></a>
+          </div>
+        </div>
+
+        <div class="hero-avatar-wrapper">
+          <div class="avatar-card">
+            <div class="avatar-placeholder">
+              <i class="fa-solid fa-user-gear avatar-icon"></i>
+              <h3>Student Profile</h3>
+              <p style="font-size:0.85rem; opacity:0.8; margin-top:0.25rem;">Business Analytics & Supply Chain</p>
+            </div>
+          </div>
+          <div class="avatar-badge-floating">
+            <i class="fa-solid fa-chart-pie"></i>
+            <div>
+              <strong>Data Driven</strong>
+              <span>Analytics & AI Focused</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 
+      ==========================================================================
+      ABOUT ME SECTION
+      Summary of background, academic vision, and foundational orientation.
+      ==========================================================================
+    -->
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">Background</span>
+          <h2 class="section-title">Academic Journey & Focus</h2>
+          <p class="section-description">
+            Building a rigorous analytical foundation to solve complex supply chain challenges through data science and strategic decision-making.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-bio">
+            <h3>Driven by Analytics & Global Flow</h3>
+            <p>
+              As a first-year student studying <strong>Business Analytics and Global Supply Chain Management</strong> at the University of New Haven, I am fascinated by how data transforms raw operational metrics into strategic supply chain advantages.
+            </p>
+            <p>
+              My focus lies in leveraging quantitative methodologies, predictive analytics, and modern AI systems to model freight delays, optimize inventory levels, and enhance supply chain resilience in volatile global environments.
+            </p>
+
+            <div class="university-card">
+              <i class="fa-solid fa-building-columns university-icon"></i>
+              <div class="university-text">
+                <strong>University of New Haven</strong>
+                <span>B.S. in Business Analytics & Global Supply Chain Management</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="focus-cards">
+            <div class="focus-card">
+              <div class="focus-icon-wrapper">
+                <i class="fa-solid fa-truck-fast"></i>
+              </div>
+              <div class="focus-content">
+                <h4>Predictive Logistics</h4>
+                <p>Applying statistical models and historical freight data to forecast shipping delays and streamline port arrivals.</p>
+              </div>
+            </div>
+
+            <div class="focus-card">
+              <div class="focus-icon-wrapper">
+                <i class="fa-solid fa-network-wired"></i>
+              </div>
+              <div class="focus-content">
+                <h4>Supply Chain Optimization</h4>
+                <p>Utilizing linear programming and mathematical modeling tools to minimize operational costs while maintaining high service levels.</p>
+              </div>
+            </div>
+
+            <div class="focus-card">
+              <div class="focus-icon-wrapper">
+                <i class="fa-solid fa-brain"></i>
+              </div>
+              <div class="focus-content">
+                <h4>AI & Data Analytics Integration</h4>
+                <p>Leveraging machine learning workflows and Generative AI for exploratory data analysis, rapid prototyping, and automated reporting.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 
+      ==========================================================================
+      ACADEMIC PROJECTS SECTION
+      Structured academic project highlights using the Problem -> Tool -> Insight framework.
+      ==========================================================================
+    -->
+    <section class="section section-alt" id="projects">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">Practical Application</span>
+          <h2 class="section-title">Academic Projects & Coursework</h2>
+          <p class="section-description">
+            Case studies and analytics projects demonstrating analytical methodology, problem-solving skills, and tool proficiency.
+          </p>
+        </div>
+
+        <!-- Filter Buttons for categories -->
+        <div class="project-filters">
+          <button class="filter-btn active" data-filter="all">All Projects</button>
+          <button class="filter-btn" data-filter="analytics">Analytics</button>
+          <button class="filter-btn" data-filter="supply-chain">Supply Chain</button>
+          <button class="filter-btn" data-filter="ai">AI Applied</button>
+        </div>
+
+        <!-- Project Cards Grid -->
+        <div class="projects-grid">
+          
+          <!-- Project Card 1 -->
+          <article class="project-card" data-category="analytics ai">
+            <div class="project-header">
+              <span class="project-category">Predictive Modeling & Logistics</span>
+              <h3>Global Freight Delay Classification Model</h3>
+            </div>
+            <div class="project-body">
+              <div class="pti-block">
+                <span class="pti-label"><i class="fa-solid fa-triangle-exclamation"></i> Problem</span>
+                <p class="pti-text">Unpredictable port delays lead to costly inventory holding and missed customer SLA deadlines.</p>
+              </div>
+              <div class="pti-block">
+                <span class="pti-label"><i class="fa-solid fa-wrench"></i> Tool</span>
+                <p class="pti-text">Python (Pandas, Scikit-Learn), AI Exploratory Scripts, Logistic Regression.</p>
+              </div>
+              <div class="pti-block">
+                <span class="pti-label"><i class="fa-solid fa-lightbulb"></i> Insight</span>
+                <p class="pti-text">Identified regional weather trends and carrier volume as key bottleneck indicators, achieving an 82% delay prediction accuracy.</p>
+              </div>
+              <div class="tags-container">
+                <span class="tag">Python</span>
+                <span class="tag">Machine Learning</span>
+                <span class="tag tag-ai">AI Assisted</span>
+              </div>
+            </div>
+            <div class="project-footer">
+              <button class="project-footer-btn" onclick="openModal('modal1')">
+                View Full Details <i class="fa-solid fa-chevron-right"></i>
+              </button>
+            </div>
+          </article>
+
+          <!-- Project Card 2 -->
+          <article class="project-card" data-category="supply-chain">
+            <div class="project-header">
+              <span class="project-category">Optimization & Operations</span>
+              <h3>Regional Distribution Network Optimization</h3>
+            </div>
+            <div class="project-body">
+              <div class="pti-block">
+                <span class="pti-label"><i class="fa-solid fa-triangle-exclamation"></i> Problem</span>
+                <p class="pti-text">Inconsistent transit times and high shipping fees across multi-hub distribution centers.</p>
+              </div>
+              <div class="pti-block">
+                <span class="pti-label"><i class="fa-solid fa-wrench"></i> Tool</span>
+                <p class="pti-text">Excel Solver, Operations Research Theory, Linear Programming.</p>
+              </div>
+              <div class="pti-block">
+                <span class="pti-label"><i class="fa-solid fa-lightbulb"></i> Insight</span>
+                <p class="pti-text">Reallocated safety stock levels across two regional hubs, modeling a theoretical 14% reduction in overall transportation cost.</p>
+              </div>
+              <div class="tags-container">
+                <span class="tag">Excel Solver</span>
+                <span class="tag">Operations</span>
+                <span class="tag">Cost Optimization</span>
+              </div>
+            </div>
+            <div class="project-footer">
+              <button class="project-footer-btn" onclick="openModal('modal2')">
+                View Full Details <i class="fa-solid fa-chevron-right"></i>
+              </button>
+            </div>
+          </article>
+
+          <!-- Project Card 3 -->
+          <article class="project-card" data-category="analytics ai">
+            <div class="project-header">
+              <span class="project-category">Generative AI & Data Mining</span>
+              <h3>Automated Inventory Risk Assessment</h3>
+            </div>
+            <div class="project-body">
+              <div class="pti-block">
+                <span class="pti-label"><i class="fa-solid fa-triangle-exclamation"></i> Problem</span>
+                <p class="pti-text">Manual review of multi-supplier stock reports is time-consuming and prone to human error.</p>
+              </div>
+              <div class="pti-block">
+                <span class="pti-label"><i class="fa-solid fa-wrench"></i> Tool</span>
+                <p class="pti-text">Python, Prompt Engineering, Generative AI Data Extraction.</p>
+              </div>
+              <div class="pti-block">
+                <span class="pti-label"><i class="fa-solid fa-lightbulb"></i> Insight</span>
+                <p class="pti-text">Engineered structured prompt pipelines to clean unstructured vendor logs, reducing risk auditing turnaround time by 60%.</p>
+              </div>
+              <div class="tags-container">
+                <span class="tag">AI Prompt Engineering</span>
+                <span class="tag">Data Mining</span>
+                <span class="tag tag-ai">Generative AI</span>
+              </div>
+            </div>
+            <div class="project-footer">
+              <button class="project-footer-btn" onclick="openModal('modal3')">
+                View Full Details <i class="fa-solid fa-chevron-right"></i>
+              </button>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- Coursework Tags Box -->
+        <div class="coursework-box">
+          <h4><i class="fa-solid fa-book-bookmark"></i> Key Coursework Highlights</h4>
+          <div class="coursework-tags">
+            <span class="course-tag">Business Analytics & Data Mining</span>
+            <span class="course-tag">Global Supply Chain Management</span>
+            <span class="course-tag">Applied Statistics for Business</span>
+            <span class="course-tag">Operations Management</span>
+            <span class="course-tag">AI & Computational Thinking</span>
+            <span class="course-tag">Micro/Macro Economics</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 
+      ==========================================================================
+      SKILLS & AI COMPETENCIES SECTION
+      Highlighting quantitative capabilities, technical stack, and AI tools.
+      ==========================================================================
+    -->
+    <section class="section" id="skills">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">Competencies</span>
+          <h2 class="section-title">Technical Skills & Tooling</h2>
+          <p class="section-description">
+            A balanced skill set spanning statistical modeling, supply chain frameworks, software, and AI integration.
+          </p>
+        </div>
+
+        <div class="skills-grid">
+          
+          <!-- Category 1: Analytics & Data Science -->
+          <div class="skill-category-card">
+            <div class="category-header">
+              <i class="fa-solid fa-chart-simple"></i>
+              <h3>Data & Analytics</h3>
+            </div>
+            
+            <div class="skill-item">
+              <div class="skill-info">
+                <span class="skill-name">Python (Pandas, NumPy)</span>
+                <span class="skill-level">Intermediate</span>
+              </div>
+              <div class="skill-bar"><div class="skill-progress" style="width: 75%;"></div></div>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-info">
+                <span class="skill-name">Excel (Pivot Tables, Solver)</span>
+                <span class="skill-level">Advanced</span>
+              </div>
+              <div class="skill-bar"><div class="skill-progress" style="width: 90%;"></div></div>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-info">
+                <span class="skill-name">SQL Database Queries</span>
+                <span class="skill-level">Working Knowledge</span>
+              </div>
+              <div class="skill-bar"><div class="skill-progress" style="width: 65%;"></div></div>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-info">
+                <span class="skill-name">Tableau / Data Visualization</span>
+                <span class="skill-level">Developing</span>
+              </div>
+              <div class="skill-bar"><div class="skill-progress" style="width: 60%;"></div></div>
+            </div>
+          </div>
+
+          <!-- Category 2: Supply Chain Concepts -->
+          <div class="skill-category-card">
+            <div class="category-header">
+              <i class="fa-solid fa-boxes-packing"></i>
+              <h3>Supply Chain & Operations</h3>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-info">
+                <span class="skill-name">Inventory Management Theory</span>
+                <span class="skill-level">Proficient</span>
+              </div>
+              <div class="skill-bar"><div class="skill-progress" style="width: 80%;"></div></div>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-info">
+                <span class="skill-name">Logistics & Route Optimization</span>
+                <span class="skill-level">Proficient</span>
+              </div>
+              <div class="skill-bar"><div class="skill-progress" style="width: 75%;"></div></div>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-info">
+                <span class="skill-name">Demand Forecasting</span>
+                <span class="skill-level">Intermediate</span>
+              </div>
+              <div class="skill-bar"><div class="skill-progress" style="width: 70%;"></div></div>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-info">
+                <span class="skill-name">Process Mapping & Optimization</span>
+                <span class="skill-level">Proficient</span>
+              </div>
+              <div class="skill-bar"><div class="skill-progress" style="width: 82%;"></div></div>
+            </div>
+          </div>
+
+          <!-- Category 3: Soft Skills & Leadership -->
+          <div class="skill-category-card">
+            <div class="category-header">
+              <i class="fa-solid fa-users-gear"></i>
+              <h3>Professional Strengths</h3>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-info">
+                <span class="skill-name">Data Storytelling</span>
+                <span class="skill-level">Advanced</span>
+              </div>
+              <div class="skill-bar"><div class="skill-progress" style="width: 85%;"></div></div>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-info">
+                <span class="skill-name">Cross-Functional Collaboration</span>
+                <span class="skill-level">Proficient</span>
+              </div>
+              <div class="skill-bar"><div class="skill-progress" style="width: 80%;"></div></div>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-info">
+                <span class="skill-name">Critical Problem Solving</span>
+                <span class="skill-level">Advanced</span>
+              </div>
+              <div class="skill-bar"><div class="skill-progress" style="width: 88%;"></div></div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Featured AI Integration Banner -->
+        <div class="ai-banner">
+          <div class="ai-icon-large">
+            <i class="fa-solid fa-microchip"></i>
+          </div>
+          <div class="ai-banner-content">
+            <h4>AI & Machine Learning Competencies</h4>
+            <p>
+              Actively leveraging Generative AI tools and computational data frameworks to accelerate exploratory analysis, code automated data cleaning scripts, and prototype predictive logistics models.
+            </p>
+            <div class="ai-pill-tags">
+              <span class="ai-pill"><i class="fa-solid fa-check me-1"></i> AI Prompt Engineering</span>
+              <span class="ai-pill"><i class="fa-solid fa-check me-1"></i> Exploratory Data Analysis (EDA)</span>
+              <span class="ai-pill"><i class="fa-solid fa-check me-1"></i> Automated Workflow Scripting</span>
+              <span class="ai-pill"><i class="fa-solid fa-check me-1"></i> AI-Powered Supply Chain Analytics</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 
+      ==========================================================================
+      CAREER GOALS & VISION SECTION
+      Timeline showing current student trajectory, internships, and grad school aspirations.
+      ==========================================================================
+    -->
+    <section class="section section-alt" id="goals">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">Trajectory</span>
+          <h2 class="section-title">Career Vision & Milestones</h2>
+          <p class="section-description">
+            A clear strategic roadmap connecting current academic achievements with long-term industry impact and graduate research goals.
+          </p>
+        </div>
+
+        <div class="timeline">
+          
+          <!-- Timeline Item 1 -->
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <span class="timeline-tag">Current Focus (Year 1)</span>
+              <h3>Academic Foundation & Tooling Mastery</h3>
+              <p>Mastering core statistical methods, Python data structures, SQL databases, and supply chain management fundamentals at the University of New Haven.</p>
+            </div>
+          </div>
+
+          <!-- Timeline Item 2 -->
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <span class="timeline-tag">Short-Term Target</span>
+              <h3>Supply Chain / Analytics Internship</h3>
+              <p>Seeking summer internship roles in logistics planning, business intelligence, or supply chain analysis to apply predictive modeling in commercial environments.</p>
+            </div>
+          </div>
+
+          <!-- Timeline Item 3 -->
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <span class="timeline-tag">Long-Term Goal</span>
+              <h3>Graduate Studies & Advanced Research</h3>
+              <p>Pursuing Master's degree studies in Business Analytics or Supply Chain Engineering, specializing in global risk management and autonomous logistics.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 
+      ==========================================================================
+      CONTACT SECTION
+      Direct contact info cards and an interactive form layout.
+      ==========================================================================
+    -->
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">Get In Touch</span>
+          <h2 class="section-title">Connect & Collaborate</h2>
+          <p class="section-description">
+            Open for summer internship opportunities, academic research discussions, or networking with industry professionals.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          
+          <!-- Direct Contact Details -->
+          <div class="contact-info">
+            
+            <div class="contact-method-card">
+              <div class="contact-icon">
+                <i class="fa-regular fa-envelope"></i>
+              </div>
+              <div class="contact-details">
+                <h4>Email Address</h4>
+                <a href="mailto:rzhan6@unh.newhaven.edu">rzhan6@unh.newhaven.edu</a>
+              </div>
+              <button class="copy-btn" onclick="copyToClipboard('rzhan6@unh.newhaven.edu')" title="Copy Email">
+                <i class="fa-regular fa-copy"></i>
+              </button>
+            </div>
+
+            <div class="contact-method-card">
+              <div class="contact-icon">
+                <i class="fa-solid fa-phone"></i>
+              </div>
+              <div class="contact-details">
+                <h4>Telephone</h4>
+                <a href="tel:2036689077">(203) 668-9077</a>
+              </div>
+              <button class="copy-btn" onclick="copyToClipboard('2036689077')" title="Copy Phone Number">
+                <i class="fa-regular fa-copy"></i>
+              </button>
+            </div>
+
+            <div class="contact-method-card">
+              <div class="contact-icon">
+                <i class="fa-solid fa-location-dot"></i>
+              </div>
+              <div class="contact-details">
+                <h4>Location</h4>
+                <p>New Haven, Connecticut</p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Interactive Contact Form -->
+          <div class="contact-form">
+            <form id="portfolioContactForm" onsubmit="handleFormSubmit(event)">
+              <div class="form-group">
+                <label for="name" class="form-label">Your Name</label>
+                <input type="text" id="name" class="form-input" placeholder="e.g., Jane Doe" required>
+              </div>
+
+              <div class="form-group">
+                <label for="email" class="form-label">Your Email</label>
+                <input type="email" id="email" class="form-input" placeholder="e.g., jane@company.com" required>
+              </div>
+
+              <div class="form-group">
+                <label for="subject" class="form-label">Subject</label>
+                <input type="text" id="subject" class="form-input" placeholder="e.g., Internship Inquiry / Network" required>
+              </div>
+
+              <div class="form-group">
+                <label for="message" class="form-label">Message</label>
+                <textarea id="message" class="form-textarea" placeholder="Write your message here..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="width: 100%;">
+                Send Message <i class="fa-solid fa-paper-plane"></i>
+              </button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 
+    ==========================================================================
+    FOOTER
+    ==========================================================================
+  -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="logo" style="color:#FFFFFF;">
+        <i class="fa-solid fa-chart-line"></i> RZ<span>.Analytics</span>
+      </div>
+      <p class="footer-text">
+        &copy; <span id="currentYear"></span> Business Analytics & Global Supply Chain Portfolio.
+      </p>
+      <div class="hero-socials" style="border:none; padding:0;">
+        <a href="https://linkedin.com" target="_blank" class="social-link"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="https://github.com" target="_blank" class="social-link"><i class="fa-brands fa-github"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification for copying contact details -->
+  <div id="toast" class="toast">
+    <i class="fa-solid fa-circle-check" style="color:var(--accent-teal);"></i>
+    <span id="toastMessage">Copied to clipboard!</span>
+  </div>
+
+  <!-- Project Detail Modals Container -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-container" id="modalContainer">
+      <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- 
+    ==========================================================================
+    JAVASCRIPT LOGIC
+    Handles mobile menu drawer, project filtering, modal popups, and copy actions.
+    ==========================================================================
+  -->
+  <script>
+    // 1. Set current year dynamically in footer
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // 2. Mobile Drawer Toggle Logic
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileDrawer.classList.toggle('active');
+      const icon = mobileMenuBtn.querySelector('i');
+      if (mobileDrawer.classList.contains('active')) {
+        icon.className = 'fa-solid fa-xmark';
+      } else {
+        icon.className = 'fa-solid fa-bars';
+      }
+    });
+
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileDrawer.classList.remove('active');
+        mobileMenuBtn.querySelector('i').className = 'fa-solid fa-bars';
+      });
+    });
+
+    // 3. Project Filter Logic
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Remove active class from all filter buttons
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filterValue = btn.getAttribute('data-filter');
+
+        projectCards.forEach(card => {
+          const categories = card.getAttribute('data-category');
+          if (filterValue === 'all' || categories.includes(filterValue)) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // 4. Modal Data and Modal Control Logic
+    const projectModalDetails = {
+      modal1: {
+        title: "Global Freight Delay Classification Model",
+        category: "Predictive Analytics & AI",
+        content: `
+          <p><strong>Overview:</strong> Developed an end-to-end predictive framework to forecast shipment delays across major international maritime routes.</p>
+          <div class="modal-section-title">Methodology & Execution:</div>
+          <p>Cleaned and standardized multi-year regional shipment logs using Python (Pandas). Utilized AI prompt scripts for rapid exploratory data analysis, identifying key risk vectors like weather volatility and port congestion indicators.</p>
+          <div class="modal-section-title">Key Outcome:</div>
+          <p>Trained a logistic regression model reaching 82% precision in classifying high-risk freight routes prior to vessel departure.</p>
+        `
+      },
+      modal2: {
+        title: "Regional Distribution Network Optimization",
+        category: "Supply Chain Operations",
+        content: `
+          <p><strong>Overview:</strong> Analyzed a multi-echelon distribution network to optimize safety stock distribution and minimize cross-dock transportation fees.</p>
+          <div class="modal-section-title">Methodology & Execution:</div>
+          <p>Built a mathematical programming model in Excel Solver using linear programming constraints. Simulated fluctuating regional demand scenarios to test network resilience.</p>
+          <div class="modal-section-title">Key Outcome:</div>
+          <p>Demonstrated a theoretical 14% operational cost reduction while maintaining a 98% target service fill rate.</p>
+        `
+      },
+      modal3: {
+        title: "Automated Inventory Risk Assessment",
+        category: "Generative AI Data Science",
+        content: `
+          <p><strong>Overview:</strong> Addressed inefficiencies in processing unstructured vendor stock reports using natural language parsing and Generative AI workflows.</p>
+          <div class="modal-section-title">Methodology & Execution:</div>
+          <p>Constructed structured prompt templates and Python API wrappers to extract standardized inventory metrics from messy text files.</p>
+          <div class="modal-section-title">Key Outcome:</div>
+          <p>Reduced manual data entry time by over 60%, creating an automated risk alert system for potential stockout scenarios.</p>
+        `
+      }
+    };
+
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalBody = document.getElementById('modalBody');
+
+    function openModal(projectId) {
+      const data = projectModalDetails[projectId];
+      if (!data) return;
+
+      modalBody.innerHTML = `
+        <span class="modal-category">${data.category}</span>
+        <h2 class="modal-title">${data.title}</h2>
+        <div class="modal-body">${data.content}</div>
+      `;
+      modalOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
+
+    function closeModal() {
+      modalOverlay.classList.remove('active');
+      document.body.style.overflow = 'auto'; // Restore scrolling
+    }
+
+    // Close modal on background click
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) closeModal();
+    });
+
+    // 5. Copy to Clipboard Functionality
+    function copyToClipboard(text) {
+      // Fallback for iFrame environments using execCommand
+      const dummy = document.createElement('input');
+      document.body.appendChild(dummy);
+      dummy.value = text;
+      dummy.select();
+      document.execCommand('copy');
+      document.body.removeChild(dummy);
+
+      showToast(`Copied "${text}" to clipboard!`);
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
+      toastMessage.textContent = message;
+      toast.classList.add('show');
+
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // 6. Contact Form Submission Handler
+    function handleFormSubmit(event) {
+      event.preventDefault();
+      const name = document.getElementById('name').value;
+      
+      showToast(`Thank you, ${name}! Your message has been sent.`);
+      document.getElementById('portfolioContactForm').reset();
+    }
+  </script>
+</body>
+</html>
